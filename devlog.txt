@@ -27,3 +27,12 @@ gives information specific to the students' current school of attendance
 taken off of the NYC DOE open database. We will plan on adding additional
 things like a game section, and weather information.
 ==============================================================
+
+isaacJ -- 2018-11-21 12:26
+--------------------------------------------------------------
+Changes we made to design doc based on reviews:
+- Changed database to store coordinates instead of ip address of user
+- Removed the api links that we did not intend to use in our program 
+- Improve component map to show how ipapi sends coordinates to the other
+api
+==============================================================
