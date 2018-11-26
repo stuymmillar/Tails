@@ -37,3 +37,8 @@ Changes we made to design doc based on reviews:
 api
 - Specified each members' roles in more detail
 ==============================================================
+
+millarM -- 2018-11-26 12:3
+--------------------------------------------------------------
+-made resetdb.py, file which creates and or resets user.db, database which stores user account info
+==============================================================
