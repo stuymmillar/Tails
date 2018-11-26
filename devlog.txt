@@ -35,4 +35,5 @@ Changes we made to design doc based on reviews:
 - Removed the api links that we did not intend to use in our program 
 - Improve component map to show how ipapi sends coordinates to the other
 api
+- Specified each members' roles in more detail
 ==============================================================
