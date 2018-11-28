@@ -7,12 +7,18 @@ def validate_login(username, password):
         c = db.cursor()
         command = "SELECT username, password FROM login"
         c.execute(command)
-        users = c.fetchall()
-        for user in users:
+        for user in c.fetchall():
             if username == user[0] and password == user[1]:
                 return (True, "Successfully logged in!")
     return (False, "Incorrect username or password.")
 
 def register_user(username, password, schoolname, longitude, latitude):
-    
-    return
+    with sqlite3.connect('users.db') as db:
+        c = db.cursor()
+        command = "SELECT username FROM login"
+        for registered_username in c.execute(command):
+            if username == registered_username[0]:
+                return (False, "The username {} already exists".format(username))
+        command = "INSERT INTO login VALUES (?, ?, ?, ?, ?)"
+        c.execute(command, (username, password, schoolname, longitude, latitude))
+        return (True, "Successfully registered {}".format(username))

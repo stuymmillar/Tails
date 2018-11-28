@@ -42,3 +42,8 @@ millarM -- 2018-11-26 12:3
 --------------------------------------------------------------
 -made resetdb.py, file which creates and or resets user.db, database which stores user account info
 ==============================================================
+
+leeB -- 2018-11-27 11:45
+--------------------------------------------------------------
+- Basic register/login implementation with database
+==============================================================
