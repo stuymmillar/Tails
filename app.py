@@ -1,8 +1,13 @@
 # Team Tails - Max Millar, Isaac Jon, Emily Lee, Brian Lee  
 
+import os
+
 from flask import Flask, request, session, redirect, render_template, flash
 
+from util.manage_user import register_user, validate_login
+
 app = Flask(__name__)
+app.secret_key = os.urandom(64)
 
 @app.route('/')
 def home():
@@ -16,13 +21,18 @@ def login():
         # Display login form
         return render_template("login.html")
     elif request.method == "POST":
-        # TODO: Validate user input and edit session
-        print(request.form)
         username = request.form['username']
         password = request.form['password']
-        return redirect('/')
+        success, message = validate_login(username, password)
+        print(message)
+        flash(message)
+        if success:
+            session["loggedin"] = True
+            return redirect('/')
+        else:
+            return render_template("login.html")
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     return render_template("register.html")
 
