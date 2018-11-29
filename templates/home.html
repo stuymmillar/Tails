@@ -1,25 +1,9 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="grid-container">
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <ul class="menu">
-        <li> <a href="#"> Home </a></li>
-        <li> <a href="#"> Weather </a></li>
-        <li> <a href="#"> Traffic </a></li>
-        <li> <a href="#"> News </a></li>
-      </ul>
-    </div>
-    <div class="top-bar-right">
-      <ul class="menu">
-        <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li>
-      </ul>
-    </div>
-  </div>
+
 <h1><p> Welcome {{user}} </p><h1>
 <h3><p>{{School}}</p></h3>
 <p>{{SchoolInfo}}</p>
-</div>
+
 {% endblock %}

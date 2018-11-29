@@ -32,7 +32,7 @@ isaacJ -- 2018-11-21 12:26
 --------------------------------------------------------------
 Changes we made to design doc based on reviews:
 - Changed database to store coordinates instead of ip address of user
-- Removed the api links that we did not intend to use in our program 
+- Removed the api links that we did not intend to use in our program
 - Improve component map to show how ipapi sends coordinates to the other
 api
 - Specified each members' roles in more detail
@@ -52,4 +52,9 @@ leeB -- 2018-11-28 12:16
 --------------------------------------------------------------
 - Display flashed text
 - Inheritance with Jinja
+==============================================================
+
+isaacJ -- 2018-11-29 12:30
+--------------------------------------------------------------
+-Got weather api to work
 ==============================================================
