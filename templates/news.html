@@ -28,8 +28,8 @@
       </div>
       <h1><p> Read Today's News </p><h1>
 	  <h3><p>Today's News</p></h3>
-	  {% for each in {{news}} %}
-	  <p><u><h5><a href={{each["url"]}}>{{each["title"]}}:</a></h5></u> {{each["abstract"]}} <br>
+	  {% for each in news %}
+	  <p><u><h5><a href={{each["url"]}}>{{each["title"]}} : </a></h5></u> {{each["abstract"]}} <br>
 	  </p>
 	  {% endfor %}
     </div>
