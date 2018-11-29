@@ -7,6 +7,16 @@
 
 <body>
   <h1 class="text-center">Tailos</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="callout alert">
+          {{ message }}
+          <a href="#" class="close">&times;</a>
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
   {% block body %}
   {% endblock %}
 </body>

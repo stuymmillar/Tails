@@ -2,5 +2,13 @@
 
 {% block title %} Register {% endblock %}
 {% block body %}
-placeholder :3
+<form action = "/login" method="POST">
+  Username:
+  <input type = "text" name = "username">
+  Password:
+  <input type = "password" name = "password">
+  <button class="button">Register</button>
+</form>
+<br>
+Already registered? Login <a href="/login">here!</a>
 {% endblock %}
