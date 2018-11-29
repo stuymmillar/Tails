@@ -34,9 +34,9 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    success, message = register_user('test', 'test', 'a', 3, 3)
+    success, message = register_user('test', 'Bop', 'Brooklyn Tech', 3, 3)
     print(message)
-    success, message = register_user('iidx gold', 'test', 'a', 3, 3)
+    success, message = register_user('iidxgold', 'money', 'Brooklyn Tech', 3, 3)
     print(message)
     return render_template("register.html")
 

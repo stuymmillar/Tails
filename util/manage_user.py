@@ -13,6 +13,8 @@ def validate_login(username, password):
     return (False, "Incorrect username or password.")
 
 def register_user(username, password, schoolname, longitude, latitude):
+    if not (username and password and schoolname and longitude and latitude):
+        return (False, "Please input all fields.")
     with sqlite3.connect('users.db') as db:
         c = db.cursor()
         command = "SELECT username FROM login"
