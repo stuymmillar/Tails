@@ -1,9 +1,14 @@
 {% extends "base.html" %}
+<html>
+  <head>
+    <title>{% block title %} Home {% endblock %}</title>
+  </head>
+  <body>
+    {% block body %}
+    <h1><p> Welcome {{user}} </p></h1>
+    <h3><p>{{School}}</p></h3>
+    <p>{{SchoolInfo}}</p>
 
-{% block body %}
-
-<h1><p> Welcome {{user}} </p><h1>
-<h3><p>{{School}}</p></h3>
-<p>{{SchoolInfo}}</p>
-
-{% endblock %}
+    {% endblock %}
+  </body>
+</html>
