@@ -3,18 +3,13 @@
 {% block title %} Login {% endblock %}
 
 {% block body %}
-<body>
-  <form action = "/login" method="POST">
-    Username:
-    <br>
-    <input type = "text" name = "username">
-    <br>
-    Password:
-    <br>
-    <input type = "password" name = "password">
-    <br>
-    <input type = "submit" name = "submit" value="Enter">
-  </form>
-  <br>
-  <a href="/register"> Register Here </a>
+<form action = "/login" method="POST">
+  Username:
+  <input type = "text" name = "username">
+  Password:
+  <input type = "password" name = "password">
+  <button class="button">Login</button>
+</form>
+<br>
+Don't have an account? Register <a href="/register">here!</a>
 {% endblock %}
