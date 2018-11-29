@@ -6,8 +6,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def render_test():
-    homelat = 
-    url = "https://transit.api.here.com/v3/route.json?app_id=7jNm9uNlO3Up0edHuqK0&app_code=6QxzobcNH0yyWBd27YItEg&routing=all&dep=" homelat + "," + homelong + "&arr=" + schoollat + "," + schoollong + "&time=2018-11-27T07%3A30%3A00"
+    schooldata = json.loads((request.urlopen("https://data.cityofnewyork.us/resource/g2qs-86ey.json")).read())
+    #print(schooldata[0])
+    homelat = 40.775088
+    homelong = -73.977815
+    #schoollat = 40.71759
+    #schoollong = -74.013748
+    schoollat = schooldata[0]["latitude"]
+    schoollong = schooldata[0]["longitude"]
+    url = "https://transit.api.here.com/v3/route.json?app_id=7jNm9uNlO3Up0edHuqK0&app_code=6QxzobcNH0yyWBd27YItEg&routing=all&dep=" + str(homelat) + "," + str(homelong) + "&arr=" + str(schoollat) + "," + str(schoollong) + "&time=2018-11-27T07%3A30%3A00"
     data = json.loads((request.urlopen(url)).read())
     return str(data)
 
