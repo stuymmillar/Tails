@@ -14,7 +14,7 @@ def story():
     fin=json.loads(req.read())
 
     return render_template("news.html",
-                               news=fin)
+                               news=fin["results"])
 '''
                                url=fin["results"][0]["url"],
                                title=fin["results"][0]["title"],
