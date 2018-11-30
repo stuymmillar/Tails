@@ -5,17 +5,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.1/dist/css/foundation.min.css">
   </head>
 
-<body>
+  <body>
   <body>
     <div class="grid-container">
       <h1><p class="text-center">Tailos</h1>
       <div class="top-bar">
 	<div class="top-bar-left">
 	  <ul class="menu">
-            <li> <a href="#"> Home </a></li>
+            <li> <a href="/"> Home </a></li>
             <li> <a href="#"> Weather </a></li>
             <li> <a href="#"> Traffic </a></li>
-            <li> <a href="#"> News </a></li>
+            <li> <a href="/news"> News </a></li>
 	  </ul>
 	</div>
 	<div class="top-bar-right">
@@ -24,16 +24,18 @@
             <li><button type="button" class="button">Search</button></li>
 	  </ul>
 	</div>
-      </div>
+      </div><br>
       {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-          <div class="callout alert">
-              {{ message }}
-              <a href="#" class="close">&times;</a>
-          </div>
-          {% endfor %}
-        {% endif %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="primary callout" data-closable>
+        {{ message }}
+        <button class="close-button" aria-label="Close alert" type="button" data-close>
+	  <span aria-hidden="true">&times;</span>
+	</button>
+      </div>
+      {% endfor %}
+      {% endif %}
       {% endwith %}
       {% block body %}
       {% endblock %}

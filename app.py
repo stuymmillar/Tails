@@ -15,10 +15,12 @@ app.secret_key = os.urandom(64)
 def home():
     if "loggedin" not in session:
         return redirect('/login')
-    return render_template("home.html")
+    return render_template("home.html", user=session["user"])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if "loggedin" in session:
+        return redirect('/')
     if request.method == 'GET':
         return render_template("login.html")
     elif request.method == "POST":
@@ -29,6 +31,7 @@ def login():
         flash(message)
         if success:
             session["loggedin"] = True
+            session["user"]=username
             return redirect('/')
         else:
             return render_template("login.html")
