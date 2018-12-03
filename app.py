@@ -47,6 +47,9 @@ def register():
         password = request.form['password']
         re_password = request.form['re_password']
         print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+        school_id = 1
+        longitude = 1
+        latitude = 1
         if not (username and password and re_password
                 and school_id and longitude and latitude):
             flash("One or more fields missing.", 'alert')
