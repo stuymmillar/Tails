@@ -1,6 +1,8 @@
 # Team Tails - Max Millar, Isaac Jon, Emily Lee, Brian Lee  
 
 import os
+import json
+import urllib
 
 from flask import Flask, request, session, redirect, render_template, flash
 
@@ -14,10 +16,12 @@ def home():
     if "loggedin" not in session:
         flash("You must be logged in to access Tailos.", 'alert')
         return redirect('/login')
-    return render_template("home.html")
+    return render_template("home.html", user=session["user"])
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if "loggedin" in session:
+        return redirect('/')
     if request.method == 'GET':
         return render_template("login.html")
     elif request.method == "POST":
@@ -29,6 +33,7 @@ def login():
         if validate_login(username, password):
             flash("Successfully logged in as {}".format(username), 'success')
             session["loggedin"] = True
+            session["user"]=username
             return redirect('/')
         else:
             return render_template("login.html")
@@ -57,6 +62,16 @@ def register():
         else:
             flash("Username {} already exists.".format(username), 'alert')
             return redirect('register')
+
+@app.route('/news')
+def story():
+    url_stub="http://api.nytimes.com/svc/topstories/v2/home.json?api-key="
+    key="ed4eb13cfbb047da88ca5ab676989676"
+    req=urllib.request.urlopen(url_stub+key)
+    fin=json.loads(req.read())
+
+    return render_template("news.html",
+                               news=fin["results"])
 
 app.debug=True
 app.run()
