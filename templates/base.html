@@ -4,11 +4,14 @@
     <title>{% block title %}Tailos{% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.1/dist/css/foundation.min.css">
   </head>
-
-  <body>
-  <body>
-    <div class="grid-container">
-      <h1><p class="text-center">Tailos</h1>
+  <style>
+    body{
+    background-color:#F2EEE2;
+    }
+  </style>
+  <div class="grid-container">
+    <body>
+      <h1><p class="text-center"><a href="/" style="color:black">Tailos</a></p></h1>
       <div class="top-bar">
 	<div class="top-bar-left">
 	  <ul class="menu">
@@ -39,7 +42,7 @@
       {% endwith %}
       {% block body %}
       {% endblock %}
-    </div>
-  </body>
+  </div>
+</body>
 
 </html>
