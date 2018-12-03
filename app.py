@@ -12,6 +12,7 @@ app.secret_key = os.urandom(64)
 @app.route('/')
 def home():
     if "loggedin" not in session:
+        flash("You must be logged in to access Tailos.", 'alert')
         return redirect('/login')
     return render_template("home.html")
 
@@ -22,10 +23,11 @@ def login():
     elif request.method == "POST":
         username = request.form['username']
         password = request.form['password']
-        success, message = validate_login(username, password)
-        print(message)
-        flash(message)
-        if success:
+        if not (username and password):
+            flash("Username or password missing.", 'alert')
+            return render_template("login.html")
+        if validate_login(username, password):
+            flash("Successfully logged in as {}".format(username), 'success')
             session["loggedin"] = True
             return redirect('/')
         else:
@@ -36,8 +38,23 @@ def register():
     if request.method == 'GET':
         return render_template("register.html")
     else:
-        # TODO: finish this
-        return "temp :3"
+        username = request.form['username']
+        password = request.form['password']
+        if not (username and password and schoolname
+                and longitude and latitude):
+            flash("One or more fields missing.", 'alert')
+            return render_template("register.html")
+        if password != re_password:
+            flash("Passwords do not match.", 'alert')
+            return render_template("register.html")
+        success = register_user(username, password, password,
+                                "Stuyvesant", 1, 2)
+        if success:
+            flash("Registered {}".format(username), 'success')
+            return redirect('login')
+        else:
+            flash("Username {} already exists.").format(username, 'alert')
+            return redirect('register')
 
 app.debug=True
 app.run()

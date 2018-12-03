@@ -6,38 +6,36 @@
   </head>
 
 <body>
-  <body>
-    <div class="grid-container">
-      <h1><p class="text-center">Tailos</h1>
-      <div class="top-bar">
-	<div class="top-bar-left">
-	  <ul class="menu">
-            <li> <a href="#"> Home </a></li>
-            <li> <a href="#"> Weather </a></li>
-            <li> <a href="#"> Traffic </a></li>
-            <li> <a href="#"> News </a></li>
-	  </ul>
-	</div>
-	<div class="top-bar-right">
-	  <ul class="menu">
-            <li><input type="search" placeholder="Search"></li>
-            <li><button type="button" class="button">Search</button></li>
-	  </ul>
-	</div>
-      </div>
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-          <div class="callout alert">
-              {{ message }}
-              <a href="#" class="close">&times;</a>
-          </div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-      {% block body %}
-      {% endblock %}
+  <div class="grid-container">
+    <h1><p class="text-center">Tailos</h1>
+    <div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="menu">
+      <li> <a href="#"> Home </a></li>
+      <li> <a href="#"> Weather </a></li>
+      <li> <a href="#"> Traffic </a></li>
+      <li> <a href="#"> News </a></li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Search"></li>
+      <li><button type="button" class="button">Search</button></li>
+    </ul>
+  </div>
     </div>
-  </body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <div class="callout {{ category }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block body %}
+    {% endblock %}
+  </div>
+</body>
 
 </html>
