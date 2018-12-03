@@ -40,20 +40,22 @@ def register():
     else:
         username = request.form['username']
         password = request.form['password']
-        if not (username and password and schoolname
-                and longitude and latitude):
+        re_password = request.form['re_password']
+        print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
+        if not (username and password and re_password
+                and school_id and longitude and latitude):
             flash("One or more fields missing.", 'alert')
             return render_template("register.html")
         if password != re_password:
             flash("Passwords do not match.", 'alert')
             return render_template("register.html")
         success = register_user(username, password, password,
-                                "Stuyvesant", 1, 2)
+                                school_id, longitude, latitude)
         if success:
             flash("Registered {}".format(username), 'success')
             return redirect('login')
         else:
-            flash("Username {} already exists.").format(username, 'alert')
+            flash("Username {} already exists.".format(username), 'alert')
             return redirect('register')
 
 app.debug=True

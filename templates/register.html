@@ -3,11 +3,13 @@
 {% block title %} Register {% endblock %}
 {% block body %}
 <h2>Register an Account</h2>
-<form action = "/register" method="POST">
+<form action="/register" method="POST">
   Username:
-  <input type = "text" name = "username">
+  <input type="text" name="username">
   Password:
-  <input type = "password" name = "password">
+  <input type="password" name="password">
+  Re-enter Password:
+  <input type="password" name="re_password">
   <button class="button">Register</button>
 </form>
 <br>

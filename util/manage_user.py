@@ -10,7 +10,8 @@ def validate_login(username, password):
                 return True
     return False
 
-def register_user(username, password, re_password, schoolname, longitude, latitude):
+def register_user(username, password, re_password,
+        school_id, longitude, latitude):
     with sqlite3.connect('users.db') as db:
         c = db.cursor()
         command = "SELECT username FROM login"
@@ -18,5 +19,5 @@ def register_user(username, password, re_password, schoolname, longitude, latitu
             if username == registered_username[0]:
                 return False
         command = "INSERT INTO login VALUES (?, ?, ?, ?, ?)"
-        c.execute(command, (username, password, schoolname, longitude, latitude))
+        c.execute(command, (username, password, school_id, longitude, latitude))
         return True
