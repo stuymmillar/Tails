@@ -19,7 +19,6 @@ def render_test():
     stations = []
     for x in range(1, (len(data["Res"]["Connections"]["Connection"]) - 1)):
         stations.append(str("The " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"]) + " from " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"]) + " to " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
-    
     #return str(data["Res"]["Connections"]["Connection"][1]["Sections"]["Sec"][0]["Arr"]["Stn"]["name"]) + " to " + str(data["Res"]["Connections"]["Connection"][1]["Sections"]["Sec"][len(data["Res"]["Connections"]["Connection"][1]["Sections"]["Sec"]) - 1]["Dep"]["Stn"]["name"] + ", School: " + schooldata[0]["school_name"])
     #return  str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][1]) + "aaaaaaaaaaaaaaa" +  str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][2]) + "aaaaaaaa" + str(len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]))
     return str(stations)
