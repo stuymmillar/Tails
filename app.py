@@ -84,9 +84,8 @@ def transit():
     print(data["incidents"][5]["shortDesc"])
     for x in range(0,5):
         incidents.append(data["incidents"][x]["shortDesc"])
-    '''schooldata = json.loads((urllib.request.urlopen("https://data.cityofnewyork.us/resource/g2qs-86ey.json")).read())
+    schooldata = json.loads((urllib.request.urlopen("https://data.cityofnewyork.us/resource/g2qs-86ey.json")).read())
     print(schooldata[140])
-'''
     
     homelat = 40.775088
     homelong = -73.977815
