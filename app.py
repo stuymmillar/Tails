@@ -7,6 +7,7 @@ import urllib
 from flask import Flask, request, session, redirect, render_template, flash
 
 from util.manage_user import register_user, validate_login
+from util.schools import get_schools
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
@@ -40,23 +41,26 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    school_data = get_schools()
+    school_data.sort(key=lambda tup:tup[1]) # sort by school name
     if request.method == 'GET':
-        return render_template("register.html")
+        return render_template("register.html",
+                                schools=school_data)
     else:
         username = request.form['username']
         password = request.form['password']
         re_password = request.form['re_password']
         print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
-        school_id = 1
+        school_id = request.form['school_id']
         longitude = 1
         latitude = 1
         if not (username and password and re_password
                 and school_id and longitude and latitude):
             flash("One or more fields missing.", 'alert')
-            return render_template("register.html")
+            return redirect('register')
         if password != re_password:
             flash("Passwords do not match.", 'alert')
-            return render_template("register.html")
+            return redirect('register')
         success = register_user(username, password, password,
                                 school_id, longitude, latitude)
         if success:

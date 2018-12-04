@@ -4,12 +4,26 @@
 {% block body %}
 <h2>Register an Account</h2>
 <form action="/register" method="POST">
-  Username:
-  <input type="text" name="username">
-  Password:
-  <input type="password" name="password">
-  Re-enter Password:
-  <input type="password" name="re_password">
+  <label>
+    Username:
+    <input type="text" name="username">
+  </label>
+  <label>
+    Password:
+    <input type="password" name="password">
+  </label>
+  <label>
+    Re-enter Password:
+    <input type="password" name="re_password">
+  <label>
+  <label>
+    School:
+    <select name="school_id">
+      {% for school in schools %}
+        <option value="{{school[0]}}">{{school[1]}}</option>
+      {% endfor %}
+    </select>
+  </label>
   <button class="button">Register</button>
 </form>
 <br>
