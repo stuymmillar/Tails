@@ -7,7 +7,7 @@ import urllib
 from flask import Flask, request, session, redirect, render_template, flash
 
 from util.manage_user import register_user, validate_login
-from util.schools import get_schools
+from util.schools import get_school
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
@@ -41,7 +41,7 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    school_data = get_schools()
+    school_data = get_school()
     school_data.sort(key=lambda tup:tup[1]) # sort by school name
     if request.method == 'GET':
         return render_template("register.html",
@@ -50,10 +50,10 @@ def register():
         username = request.form['username']
         password = request.form['password']
         re_password = request.form['re_password']
-        print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
         school_id = request.form['school_id']
-        longitude = 1
-        latitude = 1
+        school_info = get_school(id=school_id)
+        longitude = school_info[2]
+        latitude = school_info[3]
         if not (username and password and re_password
                 and school_id and longitude and latitude):
             flash("One or more fields missing.", 'alert')
