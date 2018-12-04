@@ -80,5 +80,31 @@ def story():
     return render_template("news.html",
                                news=fin["results"])
 
+'''
+@app.route("/transit")
+def transit():
+    data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key=3ajPJ1Wrf9x12UgvIzWGIvhUCdpdxacq")).read())
+    incidents = []
+    print(data["incidents"][5]["shortDesc"])
+    for x in range(0,5):
+        incidents.append(data["incidents"][x]["shortDesc"])
+    schooldata = json.loads((urllib.request.urlopen("https://data.cityofnewyork.us/resource/g2qs-86ey.json")).read())
+    print(schooldata[140])
+    
+    homelat = 40.775088
+    homelong = -73.977815
+    #schoollat = 40.71759                                                      
+    #schoollong = -74.013748                                                   
+    schoollat = schooldata[140]["latitude"]
+    schoollong = schooldata[140]["longitude"]
+    url = "https://transit.api.here.com/v3/route.json?app_id=7jNm9uNlO3Up0edHuqK0&app_code=6QxzobcNH0yyWBd27YItEg&routing=all&dep=" + str(homelat) + "," + str(homelong) + "&arr=" + str(schoollat) + "," + str(schoollong) + "&time=2018-11-27T07%3A30%3A00"
+    data = json.loads((urllib.request.urlopen(url)).read())
+    stations = []
+    for x in range(1, (len(data["Res"]["Connections"]["Connection"]) - 1)):
+        stations.append(str("The " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"]) + " from " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"]) + " to " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
+    return str(incidents) + str(stations)
+'''
+
+
 app.debug=True
 app.run()

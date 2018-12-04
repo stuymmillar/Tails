@@ -1,11 +1,15 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html>
-<head>
-  <title> Weather </title>
-</head>
+  <head>
+    <title> {% block title %} Weather {% endblock %}</title>
+  </head>
 
-<body>
-  <p> {{u}} </p>
-</body>
+  <body>
+    <h1><p><center> Weather </center></p></h1><br>
+    {% block body %}
+    <p> {{u}} </p>
+    {% endblock %}
+  </body>
 
 </html>

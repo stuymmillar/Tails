@@ -7,7 +7,7 @@
 
   <body>
     {% block body %}
-    <h1><p><center> Today's News <center></p></h1>
+    <h1><p><center> Today's News </center></p></h1><br>
     {% for each in news %}
     <p><u><h5><b><a href={{each["url"]}}>{{each["title"]}} : </a></b></h5></u> {{each["abstract"]}} <br><br>
     </p>
