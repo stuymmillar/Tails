@@ -21,3 +21,15 @@ def register_user(username, password, re_password,
         command = "INSERT INTO login VALUES (?, ?, ?, ?, ?)"
         c.execute(command, (username, password, school_id, longitude, latitude))
         return True
+
+
+# def getSchoolID(username):
+#     with sqlite3.connect('users.db') as db:
+#         c = db.cursor()
+#         schoolNum
+#
+# def getSchoolLocation():
+#
+# def getSchoolStatement():
+#
+# def getUserLocation():
