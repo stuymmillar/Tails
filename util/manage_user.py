@@ -50,4 +50,10 @@ def getSchoolStatement(username):
 
 # print(getSchoolStatement("test"))
 
-#def getUserLocation():
+def getUserLocation(username):
+    with sqlite3.connect('users.db') as db:
+        c = db.cursor()
+        command = "SELECT latitude,longitude FROM login WHERE username = " + "'" + username + "'"
+        c.execute(command)
+        return c.fetchall()[0]
+#print(getUserLocation("test"))
