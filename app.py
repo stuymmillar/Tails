@@ -73,6 +73,9 @@ def register():
 
 @app.route('/news')
 def story():
+    if "loggedin" not in session:
+        flash("You must be logged in to access Tailos.", 'alert')
+        return redirect('/login')
     url_stub="http://api.nytimes.com/svc/topstories/v2/home.json?api-key="
     with open('keys.json') as f:
         key = json.load(f)["news"]
