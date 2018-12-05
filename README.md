@@ -23,7 +23,7 @@ Run this command in our app’s home directory to install all necessary dependen
 
 Prepare API Keys:
 - Acquire API keys for those found in [API Information](#API-Information)
-- Load them into the `keys.json` file.
+- Load the keys into `keys.json`.
 
 To run the app: 
 ```
