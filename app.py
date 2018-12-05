@@ -73,7 +73,8 @@ def register():
 @app.route('/news')
 def story():
     url_stub="http://api.nytimes.com/svc/topstories/v2/home.json?api-key="
-    key="ed4eb13cfbb047da88ca5ab676989676"
+    with open('keys.json') as f:
+        key = json.load(f)["news"]
     req=urllib.request.urlopen(url_stub+key)
     fin=json.loads(req.read())
 
