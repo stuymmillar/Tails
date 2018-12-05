@@ -23,13 +23,31 @@ def register_user(username, password, re_password,
         return True
 
 
-# def getSchoolID(username):
-#     with sqlite3.connect('users.db') as db:
-#         c = db.cursor()
-#         schoolNum
-#
-# def getSchoolLocation():
-#
-# def getSchoolStatement():
-#
-# def getUserLocation():
+def getSchoolID(username):
+    with sqlite3.connect('users.db') as db:
+        c = db.cursor()
+        command = "SELECT schoolNumber FROM login WHERE username = " + "'" + username + "'"
+        c.execute(command)
+        return c.fetchall()[0][0]
+
+# print(getSchoolID("test"))
+
+def getSchoolLocation(username):
+    with sqlite3.connect('schools.db') as db:
+        c = db.cursor()
+        command = "SELECT latitude,longitude FROM schools WHERE schoolNumber = " + str(getSchoolID(username))
+        c.execute(command)
+        return c.fetchall()[0]
+
+# getSchoolLocation("test")
+
+def getSchoolStatement(username):
+    with sqlite3.connect('schools.db') as db:
+        c = db.cursor()
+        command = "SELECT statement FROM schools WHERE schoolNumber = " + str(getSchoolID(username))
+        c.execute(command)
+        return c.fetchall()[0][0]
+
+# print(getSchoolStatement("test"))
+
+#def getUserLocation():
