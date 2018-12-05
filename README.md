@@ -21,6 +21,10 @@ Run this command in our app’s home directory to install all necessary dependen
 (venv)$pip install -r requirements.txt
 ```
 
+Prepare API Keys:
+- Acquire API keys for those found in [API Information](#API-Information)
+- Load them into the `keys.json` file.
+
 To run the app: 
 ```
 (venv)$python app.py
@@ -32,9 +36,9 @@ To run the app:
 - News: https://developer.nytimes.com/
 - Weather: https://openweathermap.org/api/
 
+
 ## Dependencies: 
 - Flask: Runs the web application on local host.
 - Wheel: Used for Flask.
 - SQLite: Creates databases for storing information.
 - URLLib3: Receives information from APIs.
-
