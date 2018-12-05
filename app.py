@@ -37,6 +37,7 @@ def login():
             session["user"]=username
             return redirect('/')
         else:
+            flash("Incorrect username or password.", 'alert')
             return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
