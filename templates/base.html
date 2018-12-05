@@ -10,8 +10,25 @@
     </style>
   </head>
   <body>
-    <div class="grid-container">
-      <body>
+    
+    <div data-sticky-container>
+      <div class="warning title-bar" data-sticky data-margin-top="0" id="menu">
+	<span class="left">
+	  <ul class="menu">
+	    <li class="menu-text">Tailos</li>      
+	  </ul>
+	</span>
+	<span class="right">
+	  <ul class="menu" data-smooth-scroll>
+	    <li><a href="/">Home</a></li>
+	    <li><a href="#">Weather</a></li>
+	    <li><a href="/transit">Traffic</a></li>
+	    <li><a href="/news">News</a></li>
+	  </ul>
+	</span>
+      </div>
+      
+    <div class="grid-container"><!--
 	<h1><p class="text-center"><a href="/" style="color:black">Tailos</a></p></h1>
 	<div class="top-bar">
 	  <div class="top-bar-left">
@@ -28,7 +45,7 @@
 	      <li><button type="button" class="button">Search</button></li>
 	    </ul>
 	  </div>
-	</div><br>
+	</div><br> --><br>
 	{% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
             {% for category, message in messages %}
