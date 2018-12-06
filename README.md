@@ -24,6 +24,15 @@ Run this command in our app’s home directory to install all necessary dependen
 Prepare API Keys:
 - Acquire API keys for those found in [API Information](#API-Information)
 - Load the keys into `keys.json`.
+```
+{
+    "news":"<Enter key here>",
+    "weather":"<Enter key here>",
+    "traffic":"<Enter key here>",
+    "commuteID":"<Enter key here>",
+    "commuteCode":"<Enter key here>"
+}
+```
 
 To run the app: 
 ```
