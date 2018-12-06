@@ -6,7 +6,7 @@ import urllib
 
 from flask import Flask, request, session, redirect, render_template, flash
 
-from util.manage_user import register_user, validate_login, getSchoolID, getSchoolLocation, getSchoolStatement, getUserLocation
+from util.manage_user import register_user, validate_login, getSchoolLocation, getSchoolStatement, getSchoolName, getUserLocation
 from util.schools import get_school
 
 app = Flask(__name__)
@@ -17,7 +17,9 @@ def home():
     if "loggedin" not in session:
         flash("You must be logged in to access Tailos.", 'alert')
         return redirect('/login')
-    return render_template("home.html", user=session["user"])
+    return render_template("home.html", user=session["user"],
+                           School = getSchoolName(session["user"]),
+                           SchoolInfo = getSchoolStatement(session["user"]))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

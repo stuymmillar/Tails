@@ -50,6 +50,13 @@ def getSchoolStatement(username):
 
 # print(getSchoolStatement("test"))
 
+def getSchoolName(username):
+    with sqlite3.connect('schools.db') as db:
+        c = db.cursor()
+        command = "SELECT schoolname FROM schools WHERE schoolNumber = " + str(getSchoolID(username))
+        c.execute(command)
+        return c.fetchall()[0][0]
+
 def getUserLocation(username):
     with sqlite3.connect('users.db') as db:
         c = db.cursor()
