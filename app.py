@@ -1,16 +1,20 @@
-# Team Tails - Max Millar, Isaac Jon, Emily Lee, Brian Lee  
+# Team Tails - Max Millar, Isaac Jon, Emily Lee, Brian Lee
 
 import os
 import json
 import urllib
 
 from flask import Flask, request, session, redirect, render_template, flash
+import sqlite3
 
+from util.schooldbcreator import generateTable
 from util.manage_user import register_user, validate_login, getSchoolLocation, getSchoolStatement, getSchoolName, getUserLocation
 from util.schools import get_school
 
 app = Flask(__name__)
 app.secret_key = os.urandom(64)
+
+generateTable()
 
 @app.route('/')
 def home():
