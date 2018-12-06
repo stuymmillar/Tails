@@ -154,14 +154,23 @@ def transit():
     data = json.loads((urllib.request.urlopen(url)).read())
     stations = []
     for x in range(1, (len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]) - 1)):
-        print(str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"]))
-        stations.append(str("The "
-                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"])
-                            + " from "
+        #print(str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"]))
+        if data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]['mode'] == 20:
+            stations.append("Walk from "
                             + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"])
                             + " to "
-                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
-    '''
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"]))
+        elif data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]['mode'] == 4 or 5 or 6 or 7:
+            stations.append("The "
+                + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"])
+                + " from "
+                + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"])
+                + " to "
+                + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"]))
+        else:
+            print("api issues")
+        #print("stations: " + str(stations))
+        '''
     except:
         print("commute error")
         flash("API Error")
