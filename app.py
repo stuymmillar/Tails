@@ -123,11 +123,11 @@ def transit():
     except:
         flash("Key Error")
         return redirect("/")
-    try:    
-        data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox\=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key=" + traffic_key)).read())
+    try:
+        data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key="+ traffic_key)).read())
         incidents = []
         for x in range(0,5):
-	    incidents.append(data["incidents"][x]["shortDesc"])
+            incidents.append(data["incidents"][x]["shortDesc"])
     except:
         print("traffic")
         flash("API Error")
