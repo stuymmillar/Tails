@@ -99,3 +99,9 @@ isaacJ -- 2018-12-04 12:38
 --------------------------------------------------------------
 - Finalized database of schools, and added methods to get school number and location from user that is in session.
 ==============================================================
+
+leeB -- 2018-12-06 12:34
+--------------------------------------------------------------
+- Removed bunch of unrequired files
+- Added logout feature
+==============================================================
