@@ -128,6 +128,9 @@ def transit():
 
 @app.route("/weather")
 def weather():
+    if "loggedin" not in session:
+        flash("You must be logged in to access Tailos.", 'alert')
+        return redirect('/login')
     url = "https://api.openweathermap.org/data/2.5/weather?zip=10282,us&units=imperial&appid="
     with open('keys.json') as f:
         key = json.load(f)["weather"]
