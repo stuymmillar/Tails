@@ -89,6 +89,9 @@ def story():
 
 @app.route("/transit")
 def transit():
+    if "loggedin" not in session:
+        flash("You must be logged in to access Tailos.", 'alert')
+        return redirect('/login')
     with open("keys.json") as f:
         traffic_key = json.load(f)["traffic"]
     data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox\
@@ -117,8 +120,18 @@ def transit():
                             + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"])
                             + " to "
                             + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
-    return str(incidents) + str(stations)
+    return render_template("traffic.html",
+                           accidents=incidents,
+                           route=stations)
 
+@app.route("/weather")
+def weather():
+    url = "https://api.openweathermap.org/data/2.5/weather?zip=10282,us&units=imperial&appid="
+    with open('keys.json') as f:
+        key = json.load(f)["weather"]
+    url += key
+    result = json.loads(urllib.request.urlopen(url).read())
+    return render_template('weather.html', temp=result["main"]["temp"], desc=result["weather"][0]["description"].capitalize())
 
 app.debug=True
 app.run()
