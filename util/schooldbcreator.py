@@ -17,6 +17,8 @@ def generateTable():
     entryNum = 0
     try:
         c.execute("DROP TABLE schools")
+    except:
+        print("table already exists")
     c.execute("CREATE TABLE schools(schoolNumber INTEGER, schoolname TEXT, latitude DECIMAL, longitude DECIMAL, statement TEXT)")
     for school in schoollist:
         #command = 'INSERT INTO schools VALUES({0},"{1}",{2},{3},"{4}")'.format(entryNum, school['school_name'], school['latitude'], school['longitude'], school['overview_paragraph'])

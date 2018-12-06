@@ -149,15 +149,24 @@ def transit():
         flash("Key Error")
         return redirect("/")
     url = "https://transit.api.here.com/v3/route.json?app_id=" + app_id + "&app_code=" + app_code + "&routing=all&dep=" + str(homelat) + "," + str(homelong) + "&arr=" + str(schoollat) + "," + str(schoollong) + "&time=2018-11-27T07%3A30%3A00"
-    #print(url)
-    try:
-        data = json.loads((urllib.request.urlopen(url)).read())
-        stations = []
-        for x in range(1, (len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]) - 1)):
-            stations.append(str("The " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"]) + " from " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"]) + " to " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
+    print(url)
+    #try:
+    data = json.loads((urllib.request.urlopen(url)).read())
+    stations = []
+    for x in range(1, (len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]) - 1)):
+        print(str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"]))
+        stations.append(str("The "
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"])
+                            + " from "
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"])
+                            + " to "
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
+    '''
     except:
+        print("commute error")
         flash("API Error")
         return redirect("/")
+        '''
     return render_template("traffic.html",
                            accidents=incidents,
                            route=stations)
