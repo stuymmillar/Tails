@@ -52,9 +52,11 @@ def register():
         password = request.form['password']
         re_password = request.form['re_password']
         school_id = request.form['school_id']
-        school_info = get_school(id=school_id)
-        longitude = school_info[2]
-        latitude = school_info[3]
+        url = "https://ipapi.co/json"
+        req = urllib.request.urlopen(url)
+        data = json.loads(req.read())
+        latitude = data["latitude"]
+        longitude = data["longitude"]
         if not (username and password and re_password
                 and school_id and longitude and latitude):
             flash("One or more fields missing.", 'alert')
@@ -63,7 +65,7 @@ def register():
             flash("Passwords do not match.", 'alert')
             return redirect('register')
         success = register_user(username, password, password,
-                                school_id, longitude, latitude)
+                                school_id, latitude, longitude)
         if success:
             flash("Registered {}".format(username), 'success')
             return redirect('login')
@@ -87,10 +89,11 @@ def story():
 
 @app.route("/transit")
 def transit():
+    with open("keys.json") as f:
+        traffic_key = json.load(f)["traffic"]
     data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox\
-=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key=3ajPJ1Wrf9x12UgvIzWGIvhUCdpdxacq")).read())
+=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key=" + traffic_key)).read())
     incidents = []
-    print(data["incidents"][5]["shortDesc"])
     for x in range(0,5):
         incidents.append(data["incidents"][x]["shortDesc"])
     schoollat = getSchoolLocation(session["user"])[0]
@@ -104,10 +107,16 @@ def transit():
     with open("keys.json") as s:
         app_code = json.load(s)["commuteCode"]
     url = "https://transit.api.here.com/v3/route.json?app_id=" + app_id + "&app_code=" + app_code + "&routing=all&dep=" + str(homelat) + "," + str(homelong) + "&arr=" + str(schoollat) + "," + str(schoollong) + "&time=2018-11-27T07%3A30%3A00"
+    print(url)
     data = json.loads((urllib.request.urlopen(url)).read())
     stations = []
-    for x in range(1, (len(data["Res"]["Connections"]["Connection"]) - 1)):
-        stations.append(str("The " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"]) + " from " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"]) + " to " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
+    for x in range(1, (len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]) - 1)):
+        stations.append(str("The "
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"])
+                            + " from "
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"])
+                            + " to "
+                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
     return str(incidents) + str(stations)
 
 
