@@ -41,6 +41,7 @@ To run the app:
 
 ## API Information
 - Traffic: https://developer.mapquest.com/documentation/traffic-api/
+    - MOre stuf
 - Commute: https://developer.here.com/documentation/transit/topics/what-is.html
 - News: https://developer.nytimes.com/
 - Weather: https://openweathermap.org/api/
