@@ -24,6 +24,7 @@ def home():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if "loggedin" in session:
+        flash("You are already logged in", 'alert')
         return redirect('/')
     if request.method == 'GET':
         return render_template("login.html")
@@ -41,6 +42,17 @@ def login():
         else:
             flash("Incorrect username or password.", 'alert')
             return render_template("login.html")
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    if "loggedin" in session:
+        session.pop("loggedin")
+        session.pop("user")
+        flash("Goodbye!", 'success')
+        return redirect('/login')
+    else:
+        flash("You are not logged in.", 'alert')
+        return redirect('/login')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
