@@ -54,11 +54,15 @@ def register():
         password = request.form['password']
         re_password = request.form['re_password']
         school_id = request.form['school_id']
-        url = "https://ipapi.co/json"
-        req = urllib.request.urlopen(url)
-        data = json.loads(req.read())
-        latitude = data["latitude"]
-        longitude = data["longitude"]
+        try:
+            url = "https://ipapi.co/json"
+            req = urllib.request.urlopen(url)
+            data = json.loads(req.read())
+            latitude = data["latitude"]
+            longitude = data["longitude"]
+        except:
+            flash("API Error")
+            return redirect("register")
         if not (username and password and re_password
                 and school_id and longitude and latitude):
             flash("One or more fields missing.", 'alert')
@@ -81,11 +85,18 @@ def story():
         flash("You must be logged in to access Tailos.", 'alert')
         return redirect('/login')
     url_stub="http://api.nytimes.com/svc/topstories/v2/home.json?api-key="
-    with open('keys.json') as f:
-        key = json.load(f)["news"]
-    req=urllib.request.urlopen(url_stub+key)
-    fin=json.loads(req.read())
-
+    try:
+        with open('keys.json') as f:
+            key = json.load(f)["news"]
+    except:
+        flash("Key error.")
+        return redirect("/")
+    try:
+        req=urllib.request.urlopen(url_stub+key)
+        fin=json.loads(req.read())
+    except:
+        flash("API Error")
+        return redirect("/")
     return render_template("news.html",
                                news=fin["results"])
 
@@ -94,34 +105,43 @@ def transit():
     if "loggedin" not in session:
         flash("You must be logged in to access Tailos.", 'alert')
         return redirect('/login')
-    with open("keys.json") as f:
-        traffic_key = json.load(f)["traffic"]
-    data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox\
-=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key=" + traffic_key)).read())
-    incidents = []
-    for x in range(0,5):
-        incidents.append(data["incidents"][x]["shortDesc"])
+    try:
+        with open("keys.json") as f:
+            traffic_key = json.load(f)["traffic"]
+    except:
+        flash("Key Error")
+        return redirect("/")
+    try:    
+        data = json.loads((urllib.request.urlopen("https://www.mapquestapi.com/traffic/v2/incidents?&outFormat=json&boundingBox\=40.790419549617724%2C-73.8229751586914%2C40.635840993386466%2C-74.19136047363281&key=" + traffic_key)).read())
+        incidents = []
+        for x in range(0,5):
+	    incidents.append(data["incidents"][x]["shortDesc"])
+    except:
+        print("traffic")
+        flash("API Error")
+        return redirect("/")
     schoollat = getSchoolLocation(session["user"])[0]
     schoollong = getSchoolLocation(session["user"])[1]
     homelat = getUserLocation(session["user"])[0]
     homelong = getUserLocation(session["user"])[1]
-    #schoollat = 40.71759
-    #schoollong = -74.013748                                                  
-    with open("keys.json") as f:
-        app_id = json.load(f)["commuteID"]
-    with open("keys.json") as s:
-        app_code = json.load(s)["commuteCode"]
+    try:
+        with open("keys.json") as f:
+            app_id = json.load(f)["commuteID"]
+        with open("keys.json") as s:
+            app_code = json.load(s)["commuteCode"]
+    except:
+        flash("Key Error")
+        return redirect("/")
     url = "https://transit.api.here.com/v3/route.json?app_id=" + app_id + "&app_code=" + app_code + "&routing=all&dep=" + str(homelat) + "," + str(homelong) + "&arr=" + str(schoollat) + "," + str(schoollong) + "&time=2018-11-27T07%3A30%3A00"
-    print(url)
-    data = json.loads((urllib.request.urlopen(url)).read())
-    stations = []
-    for x in range(1, (len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]) - 1)):
-        stations.append(str("The "
-                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"])
-                            + " from "
-                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"])
-                            + " to "
-                            + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
+    #print(url)
+    try:
+        data = json.loads((urllib.request.urlopen(url)).read())
+        stations = []
+        for x in range(1, (len(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"]) - 1)):
+            stations.append(str("The " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Transport"]["name"]) + " from " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Dep"]["Stn"]["name"]) + " to " + str(data["Res"]["Connections"]["Connection"][0]["Sections"]["Sec"][x]["Arr"]["Stn"]["name"])))
+    except:
+        flash("API Error")
+        return redirect("/")
     return render_template("traffic.html",
                            accidents=incidents,
                            route=stations)
@@ -132,10 +152,18 @@ def weather():
         flash("You must be logged in to access Tailos.", 'alert')
         return redirect('/login')
     url = "https://api.openweathermap.org/data/2.5/weather?zip=10282,us&units=imperial&appid="
-    with open('keys.json') as f:
-        key = json.load(f)["weather"]
+    try:
+        with open('keys.json') as f:
+            key = json.load(f)["weather"]
+    except:
+        flash("Key Error")
+        return redirect("/")
     url += key
-    result = json.loads(urllib.request.urlopen(url).read())
+    try:
+        result = json.loads(urllib.request.urlopen(url).read())
+    except:
+        flash("API Error")
+        return redirect("/")
     return render_template('weather.html', temp=result["main"]["temp"], desc=result["weather"][0]["description"].capitalize())
 
 app.debug=True
