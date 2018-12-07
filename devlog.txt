@@ -100,8 +100,24 @@ isaacJ -- 2018-12-04 12:38
 - Finalized database of schools, and added methods to get school number and location from user that is in session.
 ==============================================================
 
+leeE -- 2018-12-04 20:30
+--------------------------------------------------------------
+- Moving Api keys into a different file (json) and implementing it
+==============================================================
+
+leeE -- 2018-12-05 12:25
+--------------------------------------------------------------
+- Fixing base.html and adding title bar (replacing top bar)
+==============================================================
+
 leeB -- 2018-12-06 12:34
 --------------------------------------------------------------
 - Removed bunch of unrequired files
 - Added logout feature
+==============================================================
+
+leeE -- 2018-12-06 19:23
+--------------------------------------------------------------
+- Adjusting weather.html
+- can't put in images? (deleted)
 ==============================================================
