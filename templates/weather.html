@@ -6,10 +6,11 @@
   </head>
 
   <body>
-    <h1><p><center> Weather </center></p></h1><br>
     {% block body %}
-    <p> {{temp}}° Fahrenheit </p>
-    <p> {{desc}}. </p>
+     <!--  <img src="/images/rain.jpg"> -->
+    <h1><p><center> Weather </center></p></h1><br>
+    <h4><p> Temperature: {{temp}}° Fahrenheit </p></h4>
+    <h4><p> Forecast: {{desc}}. </p></h4>
     {% endblock %}
   </body>
 
